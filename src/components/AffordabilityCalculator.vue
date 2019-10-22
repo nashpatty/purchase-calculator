@@ -175,6 +175,15 @@
                   <div class="input-group-append">
                     <div class="input-group-text">years</div>
                   </div>
+                  <input
+                    v-model.number="term"
+                    type="range"
+                    class="custom-range"
+                    min="10"
+                    max="30"
+                    step="5"
+                    id="term-input-range"
+                  />
                 </div>
               </div>
               <div class="form-group" id="hoi-input-group">
