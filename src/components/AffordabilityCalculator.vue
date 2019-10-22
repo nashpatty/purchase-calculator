@@ -23,15 +23,16 @@
                     <div class="input-group-text">$</div>
                   </div>
                   <input
+                    v-model="grossIncome"
                     type="text"
                     class="form-control"
                     id="gross-income-input-field"
-                    value="4000"
                   />
                   <div class="input-group-append">
                     <div class="input-group-text">/mo</div>
                   </div>
                   <input
+                    v-model="grossIncome"
                     type="range"
                     class="custom-range"
                     min="500"
@@ -47,16 +48,21 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">$</div>
                   </div>
-                  <input type="text" class="form-control" id="car-loan-input-field" value="500" />
+                  <input
+                    v-model="carLoan"
+                    type="text"
+                    class="form-control"
+                    id="car-loan-input-field"
+                  />
                   <div class="input-group-append">
                     <div class="input-group-text">/mo</div>
                   </div>
                   <input
+                    v-model="carLoan"
                     type="range"
                     class="custom-range"
                     min="0"
                     max="5000"
-                    value="500"
                     id="car-loan-input-range"
                   />
                 </div>
@@ -67,16 +73,21 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">$</div>
                   </div>
-                  <input type="text" class="form-control" id="credit-card-input-field" value="100" />
+                  <input
+                    v-model="creditCard"
+                    type="text"
+                    class="form-control"
+                    id="credit-card-input-field"
+                  />
                   <div class="input-group-append">
                     <div class="input-group-text">/mo</div>
                   </div>
                   <input
+                    v-model="creditCard"
                     type="range"
                     class="custom-range"
                     min="0"
                     max="5000"
-                    value="100"
                     id="credit-card-input-range"
                   />
                 </div>
@@ -87,16 +98,21 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">$</div>
                   </div>
-                  <input type="text" class="form-control" id="other-debts-input-field" value="150" />
+                  <input
+                    v-model="studentLoan"
+                    type="text"
+                    class="form-control"
+                    id="other-debts-input-field"
+                  />
                   <div class="input-group-append">
                     <div class="input-group-text">/mo</div>
                   </div>
                   <input
+                    v-model="studentLoan"
                     type="range"
                     class="custom-range"
                     min="0"
                     max="5000"
-                    value="150"
                     id="other-debts-input-range"
                   />
                 </div>
@@ -104,16 +120,21 @@
               <div class="form-group" id="down-payment-input-group">
                 <label for="down-payment-input-field">Down Payment</label>
                 <div class="input-group mb-2">
-                  <input type="text" class="form-control" id="down-payment-input-field" value="5" />
+                  <input
+                    v-model="downPayment"
+                    type="text"
+                    class="form-control"
+                    id="down-payment-input-field"
+                  />
                   <div class="input-group-append">
                     <div class="input-group-text">%</div>
                   </div>
                   <input
+                    v-model="downPayment"
                     type="range"
                     class="custom-range"
                     min="3"
                     max="50"
-                    value="5"
                     id="down-payment-input-range"
                   />
                 </div>
@@ -122,20 +143,21 @@
                 <label for="interest-rate-input-field">Interest Rate</label>
                 <div class="input-group mb-2">
                   <input
+                    v-model="interestRate"
                     type="text"
                     class="form-control"
                     id="interest-rate-input-field"
-                    value="4.25"
                   />
                   <div class="input-group-append">
                     <div class="input-group-text">%</div>
                   </div>
                   <input
+                    v-model="interestRate"
                     type="range"
                     class="custom-range"
                     min="2.5"
                     max="11"
-                    value="4.25"
+                    step="0.25"
                     id="interest-rate-input-range"
                   />
                 </div>
@@ -143,7 +165,7 @@
               <div class="form-group" id="term-input-group">
                 <label for="term-input-select">Term</label>
                 <div class="input-group mb-2">
-                  <select class="form-control" id="term-input-select">
+                  <select v-model="term" class="form-control" id="term-input-select">
                     <option>10</option>
                     <option>15</option>
                     <option>20</option>
@@ -161,16 +183,16 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">$</div>
                   </div>
-                  <input type="text" class="form-control" id="hoi-input-field" value="1200" />
+                  <input v-model="hoi" type="text" class="form-control" id="hoi-input-field" />
                   <div class="input-group-append">
                     <div class="input-group-text">/yr</div>
                   </div>
                   <input
+                    v-model="hoi"
                     type="range"
                     class="custom-range"
                     min="0"
                     max="4000"
-                    value="1200"
                     id="hoi-input-range"
                   />
                 </div>
@@ -181,16 +203,16 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">$</div>
                   </div>
-                  <input type="text" class="form-control" id="hoa-input-field" value="50" />
+                  <input v-model="hoa" type="text" class="form-control" id="hoa-input-field" />
                   <div class="input-group-append">
                     <div class="input-group-text">/mo</div>
                   </div>
                   <input
+                    v-model="hoa"
                     type="range"
                     class="custom-range"
                     min="5"
                     max="600"
-                    value="50"
                     id="hoa-input-range"
                   />
                 </div>
@@ -202,20 +224,20 @@
                     <div class="input-group-text">$</div>
                   </div>
                   <input
+                    v-model="propertyTax"
                     type="text"
                     class="form-control"
                     id="property-tax-input-field"
-                    value="1500"
                   />
                   <div class="input-group-append">
                     <div class="input-group-text">/yr</div>
                   </div>
                   <input
+                    v-model="propertyTax"
                     type="range"
                     class="custom-range"
                     min="400"
                     max="25000"
-                    value="1500"
                     id="property-tax-input-range"
                   />
                 </div>
@@ -248,7 +270,21 @@
 
 <script>
 export default {
-  name: "AffordabilityCalculator"
+  name: "AffordabilityCalculator",
+  data() {
+    return {
+      grossIncome: 4000,
+      carLoan: 500,
+      creditCard: 100,
+      studentLoan: 150,
+      downPayment: 5,
+      interestRate: 4.25,
+      term: 30,
+      hoi: 1200,
+      hoa: 50,
+      propertyTax: 1500
+    };
+  }
 };
 </script>
 
