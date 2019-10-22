@@ -223,19 +223,23 @@
               <div class="form-group" id="form-mod-group">
                 <div class="row">
                   <div class="col">
-                    <button type="button" class="btn btn-secondary btn-block">Simple View</button>
+                    <button type="button" class="btn btn-secondary btn-block">Simple View &#8613;</button>
                   </div>
                   <div class="col">
-                    <button type="button" class="btn btn-secondary btn-block">Reset</button>
+                    <button type="button" class="btn btn-secondary btn-block">Reset &#8634;</button>
                   </div>
                 </div>
               </div>
               <div class="form-group" id="submit-form-group">
-                <button class="btn btn-block btn-primary" type="submit">See Results</button>
+                <button class="btn btn-block btn-primary" type="submit">See Results &#8677;</button>
               </div>
             </form>
           </div>
-          <div class="col-6" id="result"></div>
+          <div class="col-6" id="result">
+            <div class="sticky">
+              <p class="background-lightblue text-center rounded">results go here (sticky)</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -250,6 +254,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+.background-lightblue {
+  background-color: lightblue;
+}
 h3 {
   margin: 40px 0 0;
 }
