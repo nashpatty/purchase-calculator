@@ -24,7 +24,7 @@
                   </div>
                   <input
                     v-model="grossIncome"
-                    type="text"
+                    type="number"
                     class="form-control"
                     id="gross-income-input-field"
                   />
@@ -50,7 +50,7 @@
                   </div>
                   <input
                     v-model="carLoan"
-                    type="text"
+                    type="number"
                     class="form-control"
                     id="car-loan-input-field"
                   />
@@ -75,7 +75,7 @@
                   </div>
                   <input
                     v-model="creditCard"
-                    type="text"
+                    type="number"
                     class="form-control"
                     id="credit-card-input-field"
                   />
@@ -100,7 +100,7 @@
                   </div>
                   <input
                     v-model="studentLoan"
-                    type="text"
+                    type="number"
                     class="form-control"
                     id="other-debts-input-field"
                   />
@@ -122,7 +122,7 @@
                 <div class="input-group mb-2">
                   <input
                     v-model="downPayment"
-                    type="text"
+                    type="number"
                     class="form-control"
                     id="down-payment-input-field"
                   />
@@ -144,7 +144,7 @@
                 <div class="input-group mb-2">
                   <input
                     v-model="interestRate"
-                    type="text"
+                    type="number"
                     class="form-control"
                     id="interest-rate-input-field"
                   />
@@ -183,7 +183,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">$</div>
                   </div>
-                  <input v-model="hoi" type="text" class="form-control" id="hoi-input-field" />
+                  <input v-model="hoi" type="number" class="form-control" id="hoi-input-field" />
                   <div class="input-group-append">
                     <div class="input-group-text">/yr</div>
                   </div>
@@ -203,7 +203,7 @@
                   <div class="input-group-prepend">
                     <div class="input-group-text">$</div>
                   </div>
-                  <input v-model="hoa" type="text" class="form-control" id="hoa-input-field" />
+                  <input v-model="hoa" type="number" class="form-control" id="hoa-input-field" />
                   <div class="input-group-append">
                     <div class="input-group-text">/mo</div>
                   </div>
@@ -225,7 +225,7 @@
                   </div>
                   <input
                     v-model="propertyTax"
-                    type="text"
+                    type="number"
                     class="form-control"
                     id="property-tax-input-field"
                   />
