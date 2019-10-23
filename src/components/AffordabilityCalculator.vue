@@ -197,88 +197,94 @@
                 />
               </div>
             </div>
-            <div class="form-group" id="hoi-input-group">
-              <label for="hoi-input-field">Homeowner's Insurance</label>
-              <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">$</div>
+            <div v-if="!simpleView">
+              <div class="form-group" id="hoi-input-group">
+                <label for="hoi-input-field">Homeowner's Insurance</label>
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">$</div>
+                  </div>
+                  <input
+                    v-model.number="hoi"
+                    type="number"
+                    class="form-control"
+                    id="hoi-input-field"
+                  />
+                  <div class="input-group-append">
+                    <div class="input-group-text">/yr</div>
+                  </div>
+                  <input
+                    v-model.number="hoi"
+                    type="range"
+                    class="custom-range"
+                    min="0"
+                    max="4000"
+                    id="hoi-input-range"
+                  />
                 </div>
-                <input
-                  v-model.number="hoi"
-                  type="number"
-                  class="form-control"
-                  id="hoi-input-field"
-                />
-                <div class="input-group-append">
-                  <div class="input-group-text">/yr</div>
-                </div>
-                <input
-                  v-model.number="hoi"
-                  type="range"
-                  class="custom-range"
-                  min="0"
-                  max="4000"
-                  id="hoi-input-range"
-                />
               </div>
-            </div>
-            <div class="form-group" id="hoa-input-group">
-              <label for="hoa-input-field"
-                >Homeowner's Association (HOA) or Condo Fees</label
-              >
-              <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">$</div>
+              <div class="form-group" id="hoa-input-group">
+                <label for="hoa-input-field"
+                  >Homeowner's Association (HOA) or Condo Fees</label
+                >
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">$</div>
+                  </div>
+                  <input
+                    v-model.number="hoa"
+                    type="number"
+                    class="form-control"
+                    id="hoa-input-field"
+                  />
+                  <div class="input-group-append">
+                    <div class="input-group-text">/mo</div>
+                  </div>
+                  <input
+                    v-model.number="hoa"
+                    type="range"
+                    class="custom-range"
+                    min="5"
+                    max="600"
+                    id="hoa-input-range"
+                  />
                 </div>
-                <input
-                  v-model.number="hoa"
-                  type="number"
-                  class="form-control"
-                  id="hoa-input-field"
-                />
-                <div class="input-group-append">
-                  <div class="input-group-text">/mo</div>
-                </div>
-                <input
-                  v-model.number="hoa"
-                  type="range"
-                  class="custom-range"
-                  min="5"
-                  max="600"
-                  id="hoa-input-range"
-                />
               </div>
-            </div>
-            <div class="form-group" id="property-tax-input-group">
-              <label for="property-tax-input-field">Property Taxes</label>
-              <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">$</div>
+              <div class="form-group" id="property-tax-input-group">
+                <label for="property-tax-input-field">Property Taxes</label>
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">$</div>
+                  </div>
+                  <input
+                    v-model.number="propertyTax"
+                    type="number"
+                    class="form-control"
+                    id="property-tax-input-field"
+                  />
+                  <div class="input-group-append">
+                    <div class="input-group-text">/yr</div>
+                  </div>
+                  <input
+                    v-model.number="propertyTax"
+                    type="range"
+                    class="custom-range"
+                    min="400"
+                    max="25000"
+                    id="property-tax-input-range"
+                  />
                 </div>
-                <input
-                  v-model.number="propertyTax"
-                  type="number"
-                  class="form-control"
-                  id="property-tax-input-field"
-                />
-                <div class="input-group-append">
-                  <div class="input-group-text">/yr</div>
-                </div>
-                <input
-                  v-model.number="propertyTax"
-                  type="range"
-                  class="custom-range"
-                  min="400"
-                  max="25000"
-                  id="property-tax-input-range"
-                />
               </div>
             </div>
             <div class="form-group" id="form-mod-group">
               <div class="row">
                 <div class="col">
-                  <button type="button" class="btn btn-secondary btn-block">
-                    Simple View &#8613;
+                  <button
+                    type="button"
+                    class="btn btn-secondary btn-block"
+                    v-on:click="simpleView = !simpleView"
+                  >
+                    {{ simpleView ? "Advanced View" : "Simple View" }}
                   </button>
                 </div>
                 <div class="col">
@@ -321,7 +327,8 @@ export default {
       term: 30,
       hoi: 1200,
       hoa: 50,
-      propertyTax: 1500
+      propertyTax: 1500,
+      simpleView: true
     };
   }
 };
