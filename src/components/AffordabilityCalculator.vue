@@ -1,420 +1,782 @@
 <template>
-  <div class="container">
-    <div class="col">
-      <div class="row">
-        <div class="col">
-          <p>
-            Figure out the maximum home price you can afford before you start
-            house hunting.
-          </p>
-          <p>
-            Note: Calculators display default values. Enter new figures to
-            override.
-          </p>
+  <div class="sliders">
+    <div v-if="!isSubmitted" id="sliders-page">
+      <div class="col">
+        <div class="row">
+          <div class="col">
+            <p>
+              Figure out the maximum home price you can afford before you start
+              house hunting.
+            </p>
+            <p class="text-italic">
+              Note: Calculators display default values. Enter new figures to
+              override.
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div id="input" class="col-6">
-          <form action>
-            <div id="gross-income-input-group" class="form-group">
-              <label for="gross-income-input-field">Gross Income</label>
-              <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">$</div>
-                </div>
-                <input
-                  id="gross-income-input-field"
-                  v-model.number="grossIncome"
-                  type="number"
-                  class="form-control"
-                />
-                <div class="input-group-append">
-                  <div class="input-group-text">/mo</div>
-                </div>
-                <input
-                  id="gross-income-input-range"
-                  v-model.number="grossIncome"
-                  type="range"
-                  class="custom-range"
-                  min="500"
-                  max="50000"
-                  value="4000"
-                />
-              </div>
-            </div>
-            <div id="car-loan-input-group" class="form-group">
-              <label for="car-loan-input-field">Car Loan</label>
-              <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">$</div>
-                </div>
-                <input
-                  id="car-loan-input-field"
-                  v-model.number="carLoan"
-                  type="number"
-                  class="form-control"
-                />
-                <div class="input-group-append">
-                  <div class="input-group-text">/mo</div>
-                </div>
-                <input
-                  id="car-loan-input-range"
-                  v-model.number="carLoan"
-                  type="range"
-                  class="custom-range"
-                  min="0"
-                  max="5000"
-                />
-              </div>
-            </div>
-            <div id="credit-card-input-group" class="form-group">
-              <label for="credit-card-input-field">Credit Cards</label>
-              <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">$</div>
-                </div>
-                <input
-                  id="credit-card-input-field"
-                  v-model.number="creditCard"
-                  type="number"
-                  class="form-control"
-                />
-                <div class="input-group-append">
-                  <div class="input-group-text">/mo</div>
-                </div>
-                <input
-                  id="credit-card-input-range"
-                  v-model.number="creditCard"
-                  type="range"
-                  class="custom-range"
-                  min="0"
-                  max="5000"
-                />
-              </div>
-            </div>
-            <div id="other-debts-input-group" class="form-group">
-              <label for="other-debts-input-field"
-                >Student Loan/Other Debts</label
-              >
-              <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">$</div>
-                </div>
-                <input
-                  id="other-debts-input-field"
-                  v-model.number="studentLoan"
-                  type="number"
-                  class="form-control"
-                />
-                <div class="input-group-append">
-                  <div class="input-group-text">/mo</div>
-                </div>
-                <input
-                  id="other-debts-input-range"
-                  v-model.number="studentLoan"
-                  type="range"
-                  class="custom-range"
-                  min="0"
-                  max="5000"
-                />
-              </div>
-            </div>
-            <div id="down-payment-input-group" class="form-group">
-              <label for="down-payment-input-field">Down Payment</label>
-              <div class="input-group mb-2">
-                <input
-                  id="down-payment-input-field"
-                  v-model.number="downPaymentPercent"
-                  type="number"
-                  class="form-control"
-                />
-                <div class="input-group-append">
-                  <div class="input-group-text">%</div>
-                </div>
-                <input
-                  id="down-payment-input-range"
-                  v-model.number="downPaymentPercent"
-                  type="range"
-                  class="custom-range"
-                  min="3"
-                  max="50"
-                />
-              </div>
-            </div>
-            <div id="interest-rate-input-group" class="form-group">
-              <label for="interest-rate-input-field">Interest Rate</label>
-              <div class="input-group mb-2">
-                <input
-                  id="interest-rate-input-field"
-                  v-model.number="interestRatePercent"
-                  type="number"
-                  class="form-control"
-                />
-                <div class="input-group-append">
-                  <div class="input-group-text">%</div>
-                </div>
-                <input
-                  id="interest-rate-input-range"
-                  v-model.number="interestRatePercent"
-                  type="range"
-                  class="custom-range"
-                  min="2.5"
-                  max="11"
-                  step="0.25"
-                />
-              </div>
-            </div>
-            <div id="term-input-group" class="form-group">
-              <label for="term-input-select">Term</label>
-              <div class="input-group mb-2">
-                <select
-                  id="term-input-select"
-                  v-model.number="term"
-                  class="form-control"
-                >
-                  <option>10</option>
-                  <option>15</option>
-                  <option>20</option>
-                  <option>25</option>
-                  <option selected>30</option>
-                </select>
-                <div class="input-group-append">
-                  <div class="input-group-text">years</div>
-                </div>
-                <input
-                  id="term-input-range"
-                  v-model.number="term"
-                  type="range"
-                  class="custom-range"
-                  min="10"
-                  max="30"
-                  step="5"
-                />
-              </div>
-            </div>
-            <div v-if="!simpleView">
-              <div id="hoi-input-group" class="form-group">
-                <label for="hoi-input-field">Homeowner's Insurance</label>
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">$</div>
-                  </div>
-                  <input
-                    id="hoi-input-field"
-                    v-model.number="hoi"
-                    type="number"
-                    class="form-control"
-                  />
-                  <div class="input-group-append">
-                    <div class="input-group-text">/yr</div>
-                  </div>
-                  <input
-                    id="hoi-input-range"
-                    v-model.number="hoi"
-                    type="range"
-                    class="custom-range"
-                    min="0"
-                    max="4000"
-                  />
-                </div>
-              </div>
-              <div id="hoa-input-group" class="form-group">
-                <label for="hoa-input-field"
-                  >Homeowner's Association (HOA) or Condo Fees</label
-                >
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">$</div>
-                  </div>
-                  <input
-                    id="hoa-input-field"
-                    v-model.number="hoa"
-                    type="number"
-                    class="form-control"
-                  />
-                  <div class="input-group-append">
-                    <div class="input-group-text">/mo</div>
-                  </div>
-                  <input
-                    id="hoa-input-range"
-                    v-model.number="hoa"
-                    type="range"
-                    class="custom-range"
-                    min="5"
-                    max="600"
-                  />
-                </div>
-              </div>
-              <div id="property-tax-input-group" class="form-group">
-                <label for="property-tax-input-field">Property Taxes</label>
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">$</div>
-                  </div>
-                  <input
-                    id="property-tax-input-field"
-                    v-model.number="propertyTax"
-                    type="number"
-                    class="form-control"
-                  />
-                  <div class="input-group-append">
-                    <div class="input-group-text">/yr</div>
-                  </div>
-                  <input
-                    id="property-tax-input-range"
-                    v-model.number="propertyTax"
-                    type="range"
-                    class="custom-range"
-                    min="400"
-                    max="25000"
-                  />
-                </div>
-              </div>
-            </div>
-            <div id="form-mod-group" class="form-group">
+        <div class="row">
+          <div class="col">
+            <form action>
               <div class="row">
-                <div class="col">
-                  <button
-                    type="button"
-                    class="btn btn-secondary btn-block"
-                    @click="simpleView = !simpleView"
-                  >
-                    {{ simpleView ? "Advanced View" : "Simple View" }}
-                  </button>
+                <div id="input" class="col col-md-6">
+                  <div id="gross-income-input-group" class="form-group">
+                    <label for="gross-income-input-field">Gross Income</label>
+                    <span
+                      class="tooltipContent"
+                      data-toggle="tooltip"
+                      data-placement="right"
+                      aria-hidden="true"
+                      data-html="true"
+                      title="<h3>Gross Income</h3><p>Enter your total monthly income before any taxes or other deductions are withheld</p>"
+                    >
+                      <i class="fa fa-question-circle fa-1x" />
+                    </span>
+                    <div class="input-group mb-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">$</div>
+                      </div>
+                      <input
+                        id="gross-income-input-field"
+                        v-model.number="$v.grossIncome.$model"
+                        type="number"
+                        class="form-control"
+                        :class="{
+                          'is-invalid': $v.grossIncome.$error,
+                          'is-invalid': $v.grossIncome.$invalid
+                        }"
+                      />
+                      <div class="input-group-append">
+                        <div class="input-group-text">/mo</div>
+                      </div>
+                      <input
+                        id="gross-income-input-range"
+                        v-model.number="grossIncome"
+                        type="range"
+                        class="custom-range"
+                        min="500"
+                        max="50000"
+                        value="4000"
+                      />
+                      <div class="invalid-feedback">
+                        <span v-if="!$v.grossIncome.between"
+                          >{{ errorMsgPre }} ${{
+                            Number(
+                              $v.grossIncome.$params.between.min
+                            ).toLocaleString()
+                          }}
+                          and ${{
+                            Number(
+                              $v.grossIncome.$params.between.max
+                            ).toLocaleString()
+                          }}</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div id="car-loan-input-group" class="form-group">
+                    <label for="car-loan-input-field">Car Loan</label>
+                    <div class="input-group mb-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">$</div>
+                      </div>
+                      <input
+                        id="car-loan-input-field"
+                        v-model.number="$v.carLoan.$model"
+                        type="number"
+                        class="form-control"
+                        :class="{
+                          'is-invalid': $v.carLoan.$error,
+                          'is-invalid': $v.carLoan.$invalid
+                        }"
+                      />
+                      <div class="input-group-append">
+                        <div class="input-group-text">/mo</div>
+                      </div>
+                      <input
+                        id="car-loan-input-range"
+                        v-model.number="carLoan"
+                        type="range"
+                        class="custom-range"
+                        min="0"
+                        max="5000"
+                      />
+                      <div class="invalid-feedback">
+                        <span v-if="!$v.carLoan.between"
+                          >{{ errorMsgPre }} ${{
+                            Number(
+                              $v.carLoan.$params.between.min
+                            ).toLocaleString()
+                          }}
+                          and ${{
+                            Number(
+                              $v.carLoan.$params.between.max
+                            ).toLocaleString()
+                          }}</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div id="credit-card-input-group" class="form-group">
+                    <label for="credit-card-input-field">Credit Cards</label>
+                    <div class="input-group mb-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">$</div>
+                      </div>
+                      <input
+                        id="credit-card-input-field"
+                        v-model.number="$v.creditCard.$model"
+                        type="number"
+                        class="form-control"
+                        :class="{
+                          'is-invalid': $v.creditCard.$error,
+                          'is-invalid': $v.creditCard.$invalid
+                        }"
+                      />
+                      <div class="input-group-append">
+                        <div class="input-group-text">/mo</div>
+                      </div>
+                      <input
+                        id="credit-card-input-range"
+                        v-model.number="creditCard"
+                        type="range"
+                        class="custom-range"
+                        min="0"
+                        max="5000"
+                      />
+                      <div class="invalid-feedback">
+                        <span v-if="!$v.creditCard.between"
+                          >{{ errorMsgPre }} ${{
+                            Number(
+                              $v.creditCard.$params.between.min
+                            ).toLocaleString()
+                          }}
+                          and ${{
+                            Number(
+                              $v.creditCard.$params.between.max
+                            ).toLocaleString()
+                          }}</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div id="other-debts-input-group" class="form-group">
+                    <label for="other-debts-input-field"
+                      >Student Loan/Other Debts</label
+                    >
+                    <div class="input-group mb-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">$</div>
+                      </div>
+                      <input
+                        id="other-debts-input-field"
+                        v-model.number="$v.studentLoan.$model"
+                        type="number"
+                        class="form-control"
+                        :class="{
+                          'is-invalid': $v.studentLoan.$error,
+                          'is-invalid': $v.studentLoan.$invalid
+                        }"
+                      />
+                      <div class="input-group-append">
+                        <div class="input-group-text">/mo</div>
+                      </div>
+                      <input
+                        id="other-debts-input-range"
+                        v-model.number="studentLoan"
+                        type="range"
+                        class="custom-range"
+                        min="0"
+                        max="5000"
+                      />
+                      <div class="invalid-feedback">
+                        <span v-if="!$v.studentLoan.between"
+                          >{{ errorMsgPre }} ${{
+                            Number(
+                              $v.studentLoan.$params.between.min
+                            ).toLocaleString()
+                          }}
+                          and ${{
+                            Number(
+                              $v.studentLoan.$params.between.max
+                            ).toLocaleString()
+                          }}</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div id="down-payment-input-group" class="form-group">
+                    <label for="down-payment-input-field">Down Payment</label>
+                    <div class="input-group mb-2">
+                      <input
+                        id="down-payment-input-field"
+                        v-model.number="$v.downPaymentPercent.$model"
+                        type="number"
+                        class="form-control"
+                        :class="{
+                          'is-invalid': $v.downPaymentPercent.$error,
+                          'is-invalid': $v.downPaymentPercent.$invalid
+                        }"
+                      />
+                      <div class="input-group-append">
+                        <div class="input-group-text">%</div>
+                      </div>
+                      <input
+                        id="down-payment-input-range"
+                        v-model.number="downPaymentPercent"
+                        type="range"
+                        class="custom-range"
+                        min="3"
+                        max="50"
+                      />
+                      <div class="invalid-feedback">
+                        <span v-if="!$v.downPaymentPercent.between"
+                          >{{ errorMsgPre }}
+                          {{
+                            Number(
+                              $v.downPaymentPercent.$params.between.min
+                            ).toLocaleString()
+                          }}% and
+                          {{
+                            Number(
+                              $v.downPaymentPercent.$params.between.max
+                            ).toLocaleString()
+                          }}%</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div id="interest-rate-input-group" class="form-group">
+                    <label for="interest-rate-input-field">Interest Rate</label>
+                    <div class="input-group mb-2">
+                      <input
+                        id="interest-rate-input-field"
+                        v-model.number="$v.interestRatePercent.$model"
+                        type="number"
+                        step="0.25"
+                        class="form-control"
+                        :class="{
+                          'is-invalid': $v.interestRatePercent.$error,
+                          'is-invalid': $v.interestRatePercent.$invalid
+                        }"
+                      />
+                      <div class="input-group-append">
+                        <div class="input-group-text">%</div>
+                      </div>
+                      <input
+                        id="interest-rate-input-range"
+                        v-model.number="interestRate"
+                        type="range"
+                        class="custom-range"
+                        min="2.5"
+                        max="11"
+                        step="0.25"
+                      />
+                      <div class="invalid-feedback">
+                        <span v-if="!$v.interestRatePercent.between"
+                          >{{ errorMsgPre }}
+                          {{
+                            Number(
+                              $v.interestRatePercent.$params.between.min
+                            ).toLocaleString()
+                          }}% and
+                          {{
+                            Number(
+                              $v.interestRatePercent.$params.between.max
+                            ).toLocaleString()
+                          }}%</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div id="term-input-group" class="form-group">
+                    <label for="term-input-select">Term</label>
+                    <div class="input-group mb-2">
+                      <select
+                        id="term-input-select"
+                        v-model.number="term"
+                        class="form-control"
+                      >
+                        <option>10</option>
+                        <option>15</option>
+                        <option>20</option>
+                        <option>25</option>
+                        <option selected>30</option>
+                      </select>
+                      <div class="input-group-append">
+                        <div class="input-group-text">yrs</div>
+                      </div>
+                      <input
+                        id="term-input-range"
+                        v-model.number="term"
+                        type="range"
+                        class="custom-range"
+                        min="10"
+                        max="30"
+                        step="5"
+                      />
+                    </div>
+                  </div>
+                  <div v-if="!simpleView">
+                    <div id="hoi-input-group" class="form-group">
+                      <label for="hoi-input-field">Homeowner's Insurance</label>
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">$</div>
+                        </div>
+                        <input
+                          id="hoi-input-field"
+                          v-model.number="$v.hoi.$model"
+                          type="number"
+                          class="form-control"
+                          :class="{
+                            'is-invalid': $v.hoi.$error,
+                            'is-invalid': $v.hoi.$invalid
+                          }"
+                        />
+                        <div class="input-group-append">
+                          <div class="input-group-text">/yr</div>
+                        </div>
+                        <input
+                          id="hoi-input-range"
+                          v-model.number="hoi"
+                          type="range"
+                          class="custom-range"
+                          min="0"
+                          max="4000"
+                        />
+                        <div class="invalid-feedback">
+                          <span v-if="!$v.hoi.between"
+                            >{{ errorMsgPre }} ${{
+                              Number(
+                                $v.hoi.$params.between.min
+                              ).toLocaleString()
+                            }}
+                            and ${{
+                              Number(
+                                $v.hoi.$params.between.max
+                              ).toLocaleString()
+                            }}</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div id="hoa-input-group" class="form-group">
+                      <label for="hoa-input-field"
+                        >Homeowner's Association (HOA) or Condo Fees</label
+                      >
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">$</div>
+                        </div>
+                        <input
+                          id="hoa-input-field"
+                          v-model.number="$v.hoa.$model"
+                          type="number"
+                          class="form-control"
+                          :class="{
+                            'is-invalid': $v.hoa.$error,
+                            'is-invalid': $v.hoa.$invalid
+                          }"
+                        />
+                        <div class="input-group-append">
+                          <div class="input-group-text">/mo</div>
+                        </div>
+                        <input
+                          id="hoa-input-range"
+                          v-model.number="hoa"
+                          type="range"
+                          class="custom-range"
+                          min="5"
+                          max="600"
+                        />
+                        <div class="invalid-feedback">
+                          <span v-if="!$v.hoa.between"
+                            >{{ errorMsgPre }} ${{
+                              Number(
+                                $v.hoa.$params.between.min
+                              ).toLocaleString()
+                            }}
+                            and ${{
+                              Number(
+                                $v.hoa.$params.between.max
+                              ).toLocaleString()
+                            }}</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div id="property-tax-input-group" class="form-group">
+                      <label for="property-tax-input-field"
+                        >Property Taxes</label
+                      >
+                      <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">$</div>
+                        </div>
+                        <input
+                          id="property-tax-input-field"
+                          v-model.number="$v.propertyTax.$model"
+                          type="number"
+                          class="form-control"
+                          :class="{
+                            'is-invalid': $v.propertyTax.$error,
+                            'is-invalid': $v.propertyTax.$invalid
+                          }"
+                        />
+                        <div class="input-group-append">
+                          <div class="input-group-text">/yr</div>
+                        </div>
+                        <input
+                          id="property-tax-input-range"
+                          v-model.number="propertyTax"
+                          type="range"
+                          class="custom-range"
+                          min="400"
+                          max="25000"
+                        />
+                        <div class="invalid-feedback">
+                          <span v-if="!$v.propertyTax.between"
+                            >{{ errorMsgPre }} ${{
+                              Number(
+                                $v.propertyTax.$params.between.min
+                              ).toLocaleString()
+                            }}
+                            and ${{
+                              Number(
+                                $v.propertyTax.$params.between.max
+                              ).toLocaleString()
+                            }}</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="result" class="col col-md-6">
+                  <div class="sticky">
+                    <nav>
+                      <div
+                        id="results-nav-tab"
+                        class="nav nav-tabs"
+                        role="tablist"
+                      >
+                        <a
+                          id="nav-purchase-info-tab"
+                          class="nav-item nav-link active"
+                          data-toggle="tab"
+                          href="#nav-purchase-info"
+                          role="tab"
+                          aria-controls="nav-purchase-info"
+                          aria-selected="true"
+                          >Purchase Info</a
+                        >
+                        <a
+                          id="nav-payment-info-tab"
+                          class="nav-item nav-link"
+                          data-toggle="tab"
+                          href="#nav-payment-info"
+                          role="tab"
+                          aria-controls="nav-payment-info"
+                          aria-selected="false"
+                          >Payment Info</a
+                        >
+                      </div>
+                    </nav>
+                    <div id="nav-tabContent" class="tab-content">
+                      <div
+                        id="nav-purchase-info"
+                        class="tab-pane fade show active"
+                        role="tabpanel"
+                        aria-labelledby="nav-purchase-info"
+                      >
+                        <ul class="list-group">
+                          <li class="list-group-item">
+                            Max Home Purchase Price: ${{
+                              Math.round(maxHomePurchasePrice)
+                            }}
+                          </li>
+                          <li class="list-group-item">
+                            Down Payment: ${{ Math.round(downPayment) }}
+                          </li>
+                          <li class="list-group-item">
+                            Mortgage Loan Amount: ${{
+                              Math.round(mortgageLoanAmount)
+                            }}
+                          </li>
+                        </ul>
+                      </div>
+                      <div
+                        id="nav-payment-info"
+                        class="tab-pane fade"
+                        role="tabpanel"
+                        aria-labelledby="nav-payment-info"
+                      >
+                        <ul class="list-group">
+                          <li class="list-group-item">
+                            Mortgage Loan Amount: ${{
+                              Math.round(mortgageLoanAmount)
+                            }}
+                          </li>
+                          <li class="list-group-item">
+                            MonthlyPayment: ${{
+                              Math.round(totalMonthlyPayment)
+                            }}
+                          </li>
+                          <li class="list-group-item">
+                            Term: {{ term }} years
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="col">
-                  <button
-                    type="button"
-                    class="btn btn-secondary btn-block"
-                    @click="reset"
-                  >
-                    Reset &#8634;
-                  </button>
+                  <hr />
+                  <div class="row">
+                    <div id="form-mod-group" class="form-group col col-md-6">
+                      <button
+                        type="button"
+                        class="btn btn-base"
+                        @click="simpleView = !simpleView"
+                      >
+                        {{ simpleView ? "Advanced View" : "Simple View" }}
+                      </button>
+                      <span class="divider"> | </span>
+                      <button type="button" class="btn btn-base" @click="reset">
+                        Reset
+                      </button>
+                    </div>
+                    <div id="submit-form-group" class="form-group col col-md-6">
+                      <button
+                        class="btn btn-block resultsBtn btn-primary"
+                        type="submit"
+                        :disabled="$v.$invalid"
+                        @click.prevent="isSubmitted = !isSubmitted"
+                      >
+                        See Results <i class="fa fa-caret-right" />
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div id="submit-form-group" class="form-group">
-              <button class="btn btn-block btn-primary" type="submit">
-                See Results &#8677;
-              </button>
-            </div>
-          </form>
-        </div>
-        <div id="result" class="col-6">
-          <div class="sticky">
-            <nav>
-              <div class="nav nav-tabs" id="results-nav-tab" role="tablist">
-                <a
-                  class="nav-item nav-link active"
-                  id="nav-purchase-info-tab"
-                  data-toggle="tab"
-                  href="#nav-purchase-info"
-                  role="tab"
-                  aria-controls="nav-purchase-info"
-                  aria-selected="true"
-                  >Purchase Info</a
-                >
-                <a
-                  class="nav-item nav-link"
-                  id="nav-payment-info-tab"
-                  data-toggle="tab"
-                  href="#nav-payment-info"
-                  role="tab"
-                  aria-controls="nav-payment-info"
-                  aria-selected="false"
-                  >Payment Info</a
-                >
-              </div>
-            </nav>
-            <div class="tab-content" id="nav-tabContent">
-              <div
-                class="tab-pane fade show active"
-                id="nav-purchase-info"
-                role="tabpanel"
-                aria-labelledby="nav-purchase-info"
-              >
-                <ul class="list-group">
-                  <li class="list-group-item">
-                    Max Home Purchase Price: ${{ maxHomePurchasePrice }}
-                  </li>
-                  <li class="list-group-item">
-                    Down Payment: ${{ downPayment }}
-                  </li>
-                  <li class="list-group-item">
-                    Mortgage Loan Amount: ${{ mortgageLoanAmount }}
-                  </li>
-                </ul>
-              </div>
-              <div
-                class="tab-pane fade"
-                id="nav-payment-info"
-                role="tabpanel"
-                aria-labelledby="nav-payment-info"
-              >
-                <ul class="list-group">
-                  <li class="list-group-item">
-                    Mortgage Loan Amount: ${{ mortgageLoanAmount }}
-                  </li>
-                  <li class="list-group-item">
-                    MonthlyPayment: ${{ monthlyPayment }}
-                  </li>
-                  <li class="list-group-item">Term: {{ term }} years</li>
-                </ul>
-              </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
+    </div>
+    <div v-if="isSubmitted" id="result-page">
+      <div class="col">
+        <ul class="list-group">
+          <p>YOU CAN POTENTIALLY AFFORD A MAX OF:</p>
+          <li class="list-group-item">
+            Max Home Purchase Price: ${{ Math.round(maxHomePurchasePrice) }}
+          </li>
+          <li class="list-group-item">
+            Mortgage Loan Amount: ${{ Math.round(mortgageLoanAmount) }}
+          </li>
+          <p>WHAT YOU SHARED ABOUT YOUR FINANCIAL SITUATION:</p>
+          <li class="list-group-item">
+            Gross Income: ${{ Math.round(grossIncome) }}
+          </li>
+          <li class="list-group-item">
+            Total Debts: ${{ Math.round(totalDebts) }}
+          </li>
+          <li class="list-group-item">Car Loans: ${{ Math.round(carLoan) }}</li>
+          <li class="list-group-item">
+            Credit Cards: ${{ Math.round(creditCard) }}
+          </li>
+          <li class="list-group-item">
+            Student Loans / Other Debts: ${{ Math.round(studentLoan) }}
+          </li>
+          <li class="list-group-item">Debt to Income: {{ dtiPercent }}%</li>
+          <p>EXPECTED FUNDS NEEDED AT CLOSING:</p>
+          <li class="list-group-item">
+            Down Payment: ${{ Math.round(downPayment) }}
+          </li>
+          <li class="list-group-item">
+            Closing Costs: ${{ Math.round(closingCost) }}
+          </li>
+          <p>INFORMATION ABOUT YOUR POTENTIAL MORTGAGE:</p>
+          <li class="list-group-item">
+            Mortgage Loan Amount: ${{ Math.round(mortgageLoanAmount) }}
+          </li>
+          <li class="list-group-item">Term: {{ term }} years</li>
+          <li class="list-group-item">
+            Interest Rate: {{ interestRatePercent }}%
+          </li>
+          <li class="list-group-item">
+            Total Mortgage Payment: ${{ Math.round(totalMonthlyPayment) }}
+          </li>
+          <li class="list-group-item">
+            Principal Interest and Taxes: ${{
+              Math.round(principalInterestPayment)
+            }}
+          </li>
+          <li class="list-group-item">
+            Property Taxes: ${{ Math.round(propertyTaxMonthly) }}
+          </li>
+          <li class="list-group-item">
+            Home Owners Insurance: ${{ Math.round(hoiMonthly) }}
+          </li>
+          <li class="list-group-item">
+            PMI: ${{ Math.round(monthlyMortagePremium) }}
+          </li>
+          <li class="list-group-item">HOA Fees: ${{ Math.round(hoa) }}</li>
+        </ul>
+      </div>
+      <button
+        class="btn btn-block btn-primary"
+        @click.prevent="isSubmitted = !isSubmitted"
+      >
+        Back to Calculator &#8677;
+      </button>
+      <p>
+        These calculator results are estimates based on your inputs, a 36%* DTI
+        (debt-to-income) default setting, and other assumptions required to make
+        a preliminary calculation. Depending on your inputs, the default values
+        for property taxes, homeowner’s insurance and HOA fees may not be
+        accurate for your situation. Contact a bank, credit union, housing
+        advisor, or lender to determine your loan eligibility and accurate
+        costs. Fannie Mae does not offer mortgage loans to consumers and this in
+        no way indicates approval or financing of a mortgage loan.
+      </p>
+      <p>
+        * Lenders often use your DTI and other factors (i.e., underwriting
+        guidelines) to confirm eligibility and the type of loan you may be
+        offered. Lenders may require a higher or lower DTI percentage to
+        determine loan eligibility based on your individual financial situation.
+      </p>
     </div>
   </div>
 </template>
 
 
 <script>
+import { between } from "vuelidate/lib/validators";
+
 export default {
   name: "AffordabilityCalculator",
   data() {
     return this.init();
   },
+  validations: {
+    grossIncome: {
+      between: between(500, 50000)
+    },
+    carLoan: {
+      between: between(0, 5000)
+    },
+    creditCard: {
+      between: between(0, 5000)
+    },
+    studentLoan: {
+      between: between(0, 5000)
+    },
+    downPaymentPercent: {
+      between: between(3, 50)
+    },
+    interestRatePercent: {
+      between: between(2.5, 11)
+    },
+    hoi: {
+      between: between(0, 24000)
+    },
+    hoa: {
+      between: between(0, 1000)
+    },
+    propertyTax: {
+      between: between(0, 40000)
+    }
+  },
   computed: {
     maxHomePurchasePrice() {
-      // todo
-      return Math.round(this.grossIncome * 3.0);
+      let max = this.mortgageLoanAmount + this.downPayment;
+      return this.handleNegativeNums(max);
     },
     downPayment() {
-      return Math.round(
-        (this.downPaymentPercent / 100) * this.mortgageLoanAmount
-      );
+      let down =
+        this.mortgageLoanAmount / (1 - this.downPaymentPercent / 100) -
+        this.mortgageLoanAmount;
+      return this.handleNegativeNums(down);
     },
     mortgageLoanAmount() {
-      // todo
-      return Math.round(this.grossIncome * 2.5);
+      let loan = this.pv(
+        this.interestRate / 12,
+        this.term * 12,
+        this.principalInterestPayment
+      );
+      return this.handleNegativeNums(loan);
     },
-    ltv() {
-      return Math.round(this.downPayment / this.mortgageLoanAmount);
+    loanToValue() {
+      return this.downPayment / this.mortgageLoanAmount;
     },
-    monthlyPayment() {
-      return Math.round(this.mortgageLoanAmount / 12);
+    estimatedMonthlyPayment() {
+      return this.grossIncome * this.dti - this.totalDebts;
     },
     dtiPercent() {
-      return Math.round(this.dti * 100);
+      return this.dti * 100;
+    },
+    interestRate() {
+      return this.interestRatePercent / 100;
     },
     closingCost() {
-      return Math.round(this.mortgageLoanAmount * 0.05);
+      return Math.round(this.maxHomePurchasePrice * this.closingCostMultiplier);
     },
-    totalMortgagePayment() {
-      return this.monthlyPayment();
+    totalMonthlyPayment() {
+      let payment =
+        this.propertyTaxMonthly +
+        this.hoiMonthly +
+        this.hoa +
+        this.monthlyMortagePremium +
+        this.principalInterestPayment;
+      if (this.maxHomePurchasePrice <= 0) {
+        return 0;
+      }
+      return this.handleNegativeNums(payment);
     },
     principalInterestPayment() {
-      return 1000;
+      if (this.estimatedMonthlyPayment <= 0) {
+        return 0;
+      }
+      let payment =
+        this.estimatedMonthlyPayment -
+        (this.propertyTaxMonthly +
+          this.hoiMonthly +
+          this.hoa +
+          this.monthlyMortagePremium);
+      return this.handleNegativeNums(payment);
     },
     pmi() {
-      return 2000;
+      return 0.0062;
+    },
+    monthlyMortagePremium() {
+      if (this.guessLoanAmount <= 0) {
+        return 0;
+      }
+      let premium = (this.pmi * this.guessLoanAmount) / 12;
+      return this.handleNegativeNums(premium);
+    },
+    guessLoanAmount() {
+      return this.pv(
+        this.interestRate / 12,
+        this.term * 12,
+        this.estimatedMonthlyPayment - this.grossIncome * 0.05
+      );
+    },
+    totalDebts() {
+      return this.carLoan + this.creditCard + this.studentLoan;
+    },
+    propertyTaxMonthly() {
+      return this.propertyTax / 12;
+    },
+    hoiMonthly() {
+      return this.hoi / 12;
     }
   },
   methods: {
     init() {
       return {
+        isSubmitted: false,
         grossIncome: 4000,
         carLoan: 500,
         creditCard: 100,
@@ -426,7 +788,9 @@ export default {
         hoa: 50,
         propertyTax: 1500,
         simpleView: true,
-        dti: 0.36
+        dti: 0.36,
+        closingCostMultiplier: 0.025,
+        errorMsgPre: "Please enter a valid amount between"
       };
     },
     reset() {
@@ -440,6 +804,16 @@ export default {
       this.hoi = this.init().hoi;
       this.hoa = this.init().hoa;
       this.propertyTax = this.init().propertyTax;
+    },
+    pv(rate, nper, pmt) {
+      let x = (1 + rate) ** nper;
+      return (pmt * ((x - 1) / rate)) / x;
+    },
+    handleNegativeNums(n) {
+      if (n < 0) {
+        return 0;
+      }
+      return n;
     }
   }
 };
