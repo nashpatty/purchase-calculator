@@ -58,7 +58,10 @@
                         value="4000"
                       />
                       <div class="invalid-feedback">
-                        <span v-if="!$v.grossIncome.between"
+                        <span
+                          v-if="
+                            !$v.grossIncome.between || !$v.grossIncome.required
+                          "
                           >{{ errorMsgPre }} ${{
                             Number(
                               $v.grossIncome.$params.between.min
@@ -101,7 +104,7 @@
                         max="5000"
                       />
                       <div class="invalid-feedback">
-                        <span v-if="!$v.carLoan.between"
+                        <span v-if="!$v.carLoan.between || !$v.carLoan.required"
                           >{{ errorMsgPre }} ${{
                             Number(
                               $v.carLoan.$params.between.min
@@ -144,7 +147,10 @@
                         max="5000"
                       />
                       <div class="invalid-feedback">
-                        <span v-if="!$v.creditCard.between"
+                        <span
+                          v-if="
+                            !$v.creditCard.between || !$v.creditCard.required
+                          "
                           >{{ errorMsgPre }} ${{
                             Number(
                               $v.creditCard.$params.between.min
@@ -189,7 +195,10 @@
                         max="5000"
                       />
                       <div class="invalid-feedback">
-                        <span v-if="!$v.studentLoan.between"
+                        <span
+                          v-if="
+                            !$v.studentLoan.between || !$v.studentLoan.required
+                          "
                           >{{ errorMsgPre }} ${{
                             Number(
                               $v.studentLoan.$params.between.min
@@ -229,7 +238,11 @@
                         max="50"
                       />
                       <div class="invalid-feedback">
-                        <span v-if="!$v.downPaymentPercent.between"
+                        <span
+                          v-if="
+                            !$v.downPaymentPercent.between ||
+                              !$v.downPaymentPercent.required
+                          "
                           >{{ errorMsgPre }}
                           {{
                             Number(
@@ -272,7 +285,11 @@
                         step="0.25"
                       />
                       <div class="invalid-feedback">
-                        <span v-if="!$v.interestRatePercent.between"
+                        <span
+                          v-if="
+                            !$v.interestRatePercent.between ||
+                              !$v.interestRatePercent.required
+                          "
                           >{{ errorMsgPre }}
                           {{
                             Number(
@@ -345,7 +362,7 @@
                           max="4000"
                         />
                         <div class="invalid-feedback">
-                          <span v-if="!$v.hoi.between"
+                          <span v-if="!$v.hoi.between || !$v.hoi.required"
                             >{{ errorMsgPre }} ${{
                               Number(
                                 $v.hoi.$params.between.min
@@ -390,7 +407,7 @@
                           max="600"
                         />
                         <div class="invalid-feedback">
-                          <span v-if="!$v.hoa.between"
+                          <span v-if="!$v.hoa.between || !$v.hoa.required"
                             >{{ errorMsgPre }} ${{
                               Number(
                                 $v.hoa.$params.between.min
@@ -435,7 +452,11 @@
                           max="25000"
                         />
                         <div class="invalid-feedback">
-                          <span v-if="!$v.propertyTax.between"
+                          <span
+                            v-if="
+                              !$v.propertyTax.between ||
+                                !$v.propertyTax.required
+                            "
                             >{{ errorMsgPre }} ${{
                               Number(
                                 $v.propertyTax.$params.between.min
@@ -652,7 +673,7 @@
 
 
 <script>
-import { between } from "vuelidate/lib/validators";
+import { required, between } from "vuelidate/lib/validators";
 
 export default {
   name: "AffordabilityCalculator",
@@ -661,30 +682,39 @@ export default {
   },
   validations: {
     grossIncome: {
+      required,
       between: between(500, 50000)
     },
     carLoan: {
+      required,
       between: between(0, 5000)
     },
     creditCard: {
+      required,
       between: between(0, 5000)
     },
     studentLoan: {
+      required,
       between: between(0, 5000)
     },
     downPaymentPercent: {
+      required,
       between: between(3, 50)
     },
     interestRatePercent: {
+      required,
       between: between(2.5, 11)
     },
     hoi: {
+      required,
       between: between(0, 24000)
     },
     hoa: {
+      required,
       between: between(0, 1000)
     },
     propertyTax: {
+      required,
       between: between(0, 40000)
     }
   },
@@ -747,6 +777,9 @@ export default {
       return this.handleNegativeNums(payment);
     },
     pmi() {
+      if (this.downPaymentPercent > 20) {
+        return 0;
+      }
       return 0.0062;
     },
     monthlyMortagePremium() {
