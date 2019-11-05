@@ -41,8 +41,8 @@
                         type="number"
                         class="form-control"
                         :class="{
-                          'is-invalid': $v.grossIncome.$error,
-                          'is-invalid': $v.grossIncome.$invalid
+                          'is-invalid':
+                            $v.grossIncome.$error || $v.grossIncome.$invalid
                         }"
                       />
                       <div class="input-group-append">
@@ -88,8 +88,7 @@
                         type="number"
                         class="form-control"
                         :class="{
-                          'is-invalid': $v.carLoan.$error,
-                          'is-invalid': $v.carLoan.$invalid
+                          'is-invalid': $v.carLoan.$error || $v.carLoan.$invalid
                         }"
                       />
                       <div class="input-group-append">
@@ -131,8 +130,8 @@
                         type="number"
                         class="form-control"
                         :class="{
-                          'is-invalid': $v.creditCard.$error,
-                          'is-invalid': $v.creditCard.$invalid
+                          'is-invalid':
+                            $v.creditCard.$error || $v.creditCard.$invalid
                         }"
                       />
                       <div class="input-group-append">
@@ -179,8 +178,8 @@
                         type="number"
                         class="form-control"
                         :class="{
-                          'is-invalid': $v.studentLoan.$error,
-                          'is-invalid': $v.studentLoan.$invalid
+                          'is-invalid':
+                            $v.studentLoan.$error || $v.studentLoan.$invalid
                         }"
                       />
                       <div class="input-group-append">
@@ -222,8 +221,9 @@
                         type="number"
                         class="form-control"
                         :class="{
-                          'is-invalid': $v.downPaymentPercent.$error,
-                          'is-invalid': $v.downPaymentPercent.$invalid
+                          'is-invalid':
+                            $v.downPaymentPercent.$error ||
+                            $v.downPaymentPercent.$invalid
                         }"
                       />
                       <div class="input-group-append">
@@ -269,8 +269,9 @@
                         step="0.25"
                         class="form-control"
                         :class="{
-                          'is-invalid': $v.interestRatePercent.$error,
-                          'is-invalid': $v.interestRatePercent.$invalid
+                          'is-invalid':
+                            $v.interestRatePercent.$error ||
+                            $v.interestRatePercent.$invalid
                         }"
                       />
                       <div class="input-group-append">
@@ -347,8 +348,7 @@
                           type="number"
                           class="form-control"
                           :class="{
-                            'is-invalid': $v.hoi.$error,
-                            'is-invalid': $v.hoi.$invalid
+                            'is-invalid': $v.hoi.$error || $v.hoi.$invalid
                           }"
                         />
                         <div class="input-group-append">
@@ -392,8 +392,7 @@
                           type="number"
                           class="form-control"
                           :class="{
-                            'is-invalid': $v.hoa.$error,
-                            'is-invalid': $v.hoa.$invalid
+                            'is-invalid': $v.hoa.$error || $v.hoa.$invalid
                           }"
                         />
                         <div class="input-group-append">
@@ -437,8 +436,8 @@
                           type="number"
                           class="form-control"
                           :class="{
-                            'is-invalid': $v.propertyTax.$error,
-                            'is-invalid': $v.propertyTax.$invalid
+                            'is-invalid':
+                              $v.propertyTax.$error || $v.propertyTax.$invalid
                           }"
                         />
                         <div class="input-group-append">
