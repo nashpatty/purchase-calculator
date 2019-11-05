@@ -28,39 +28,39 @@
                       </div>
                       <input
                         id="gross-income-input-field"
-                        v-model.number="$v.grossIncome.$model"
+                        v-model.number="$v.homePurchasePrice.$model"
+                        @input="updateFees"
                         type="number"
                         class="form-control"
                         :class="{
                           'is-invalid':
-                            $v.grossIncome.$error || $v.grossIncome.$invalid
+                            $v.homePurchasePrice.$error ||
+                            $v.homePurchasePrice.$invalid
                         }"
                       />
-                      <div class="input-group-append">
-                        <div class="input-group-text">/mo</div>
-                      </div>
                       <input
                         id="gross-income-input-range"
-                        v-model.number="grossIncome"
+                        v-model.number="homePurchasePrice"
+                        @input="updateFees"
                         type="range"
                         class="custom-range"
-                        min="500"
-                        max="50000"
-                        value="4000"
+                        min="10000"
+                        max="1000000"
                       />
                       <div class="invalid-feedback">
                         <span
                           v-if="
-                            !$v.grossIncome.between || !$v.grossIncome.required
+                            !$v.homePurchasePrice.between ||
+                              !$v.homePurchasePrice.required
                           "
                           >{{ errorMsgPre }} ${{
                             Number(
-                              $v.grossIncome.$params.between.min
+                              $v.homePurchasePrice.$params.between.min
                             ).toLocaleString()
                           }}
                           and ${{
                             Number(
-                              $v.grossIncome.$params.between.max
+                              $v.homePurchasePrice.$params.between.max
                             ).toLocaleString()
                           }}</span
                         >
@@ -114,54 +114,6 @@
                       </div>
                     </div>
                   </div>
-                  <div id="interest-rate-input-group" class="form-group">
-                    <label for="interest-rate-input-field">Interest Rate</label>
-                    <div class="input-group mb-2">
-                      <input
-                        id="interest-rate-input-field"
-                        v-model.number="$v.interestRatePercent.$model"
-                        type="number"
-                        step="0.25"
-                        class="form-control"
-                        :class="{
-                          'is-invalid':
-                            $v.interestRatePercent.$error ||
-                            $v.interestRatePercent.$invalid
-                        }"
-                      />
-                      <div class="input-group-append">
-                        <div class="input-group-text">%</div>
-                      </div>
-                      <input
-                        id="interest-rate-input-range"
-                        v-model.number="interestRate"
-                        type="range"
-                        class="custom-range"
-                        min="2.5"
-                        max="11"
-                        step="0.25"
-                      />
-                      <div class="invalid-feedback">
-                        <span
-                          v-if="
-                            !$v.interestRatePercent.between ||
-                              !$v.interestRatePercent.required
-                          "
-                          >{{ errorMsgPre }}
-                          {{
-                            Number(
-                              $v.interestRatePercent.$params.between.min
-                            ).toLocaleString()
-                          }}% and
-                          {{
-                            Number(
-                              $v.interestRatePercent.$params.between.max
-                            ).toLocaleString()
-                          }}%</span
-                        >
-                      </div>
-                    </div>
-                  </div>
                   <div id="term-input-group" class="form-group">
                     <label for="term-input-select">Term</label>
                     <div class="input-group mb-2">
@@ -188,6 +140,54 @@
                         max="30"
                         step="5"
                       />
+                    </div>
+                  </div>
+                  <div id="interest-rate-input-group" class="form-group">
+                    <label for="interest-rate-input-field">Interest Rate</label>
+                    <div class="input-group mb-2">
+                      <input
+                        id="interest-rate-input-field"
+                        v-model.number="$v.interestRatePercent.$model"
+                        type="number"
+                        step="0.25"
+                        class="form-control"
+                        :class="{
+                          'is-invalid':
+                            $v.interestRatePercent.$error ||
+                            $v.interestRatePercent.$invalid
+                        }"
+                      />
+                      <div class="input-group-append">
+                        <div class="input-group-text">%</div>
+                      </div>
+                      <input
+                        id="interest-rate-input-range"
+                        v-model.number="interestRatePercent"
+                        type="range"
+                        class="custom-range"
+                        min="2.5"
+                        max="11"
+                        step="0.25"
+                      />
+                      <div class="invalid-feedback">
+                        <span
+                          v-if="
+                            !$v.interestRatePercent.between ||
+                              !$v.interestRatePercent.required
+                          "
+                          >{{ errorMsgPre }}
+                          {{
+                            Number(
+                              $v.interestRatePercent.$params.between.min
+                            ).toLocaleString()
+                          }}% and
+                          {{
+                            Number(
+                              $v.interestRatePercent.$params.between.max
+                            ).toLocaleString()
+                          }}%</span
+                        >
+                      </div>
                     </div>
                   </div>
                   <div v-if="!simpleView">
@@ -368,23 +368,23 @@
                         <ul class="list-group">
                           <li class="list-group-item">
                             Monthly Mortgage Payment: ${{
-                              Math.round(maxHomePurchasePrice)
+                              Math.round(totalMonthlyMortgage)
                             }}
                           </li>
                           <li class="list-group-item">
-                            PMI: ${{ Math.round(downPayment) }}
+                            PMI: ${{ Math.round(monthlyMortgageInsurance) }}
                           </li>
                           <li class="list-group-item">
-                            HOA: ${{ Math.round(mortgageLoanAmount) }}
+                            HOA: ${{ Math.round(hoa) }}
                           </li>
                           <li class="list-group-item">
                             Taxes & Insurance: ${{
-                              Math.round(mortgageLoanAmount)
+                              Math.round(monthlyPropertyTax + monthlyHoi)
                             }}
                           </li>
                           <li class="list-group-item">
                             Principal & Interest: ${{
-                              Math.round(mortgageLoanAmount)
+                              Math.round(monthlyPrincipalInterestPayment)
                             }}
                           </li>
                         </ul>
@@ -402,7 +402,7 @@
                             }}
                           </li>
                           <li class="list-group-item">
-                            Down Payment: ${{ Math.round(totalMonthlyPayment) }}
+                            Down Payment: ${{ Math.round(downPayment) }}
                           </li>
                           <li class="list-group-item">
                             Term: {{ term }} years
@@ -451,46 +451,48 @@
         <ul class="list-group">
           <p>YOU CAN EXPECT TO PAY:</p>
           <li class="list-group-item">
-            Home Purchase Price: ${{ Math.round(maxHomePurchasePrice) }}
+            Home Purchase Price: ${{ Math.round(homePurchasePrice) }}
           </li>
           <li class="list-group-item">
             Mortgage Loan Amount: ${{ Math.round(mortgageLoanAmount) }}
           </li>
           <li class="list-group-item">
-            Total Mortgage Payment: ${{ Math.round(mortgageLoanAmount) }}
+            Total Mortgage Payment: ${{ Math.round(totalMonthlyMortgage) }}
           </li>
           <p>EXPECTED FUNDS NEEDED AT CLOSING:</p>
           <li class="list-group-item">
-            Total Cash Required: ${{ Math.round(grossIncome) }}
+            Total Cash Required: ${{ Math.round(downPayment + closingCost) }}
           </li>
           <li class="list-group-item">
-            Down Payment: ${{ Math.round(totalDebts) }}
+            Down Payment: ${{ Math.round(downPayment) }}
           </li>
           <li class="list-group-item">
-            Closing Costs: ${{ Math.round(carLoan) }}
+            Closing Costs: ${{ Math.round(closingCost) }}
           </li>
           <p>INFORMATION ABOUT YOUR POTENTIAL MORTGAGE:</p>
           <li class="list-group-item">
-            Mortgage Loan Amount: ${{ Math.round(downPayment) }}
+            Mortgage Loan Amount: ${{ Math.round(mortgageLoanAmount) }}
           </li>
-          <li class="list-group-item">Term: ${{ Math.round(closingCost) }}</li>
+          <li class="list-group-item">Term: ${{ Math.round(term) }}</li>
           <li class="list-group-item">
-            Total Mortgage Payment: ${{ Math.round(closingCost) }}
-          </li>
-          <li class="list-group-item">
-            Principal & Interest (P&I) Payment: ${{ Math.round(closingCost) }}
+            Total Mortgage Payment: ${{ Math.round(totalMonthlyMortgage) }}
           </li>
           <li class="list-group-item">
-            Property Taxes: ${{ Math.round(closingCost) }}
+            Principal & Interest (P&I) Payment: ${{
+              Math.round(monthlyPrincipalInterestPayment)
+            }}
           </li>
           <li class="list-group-item">
-            Homeowners Insurance: ${{ Math.round(closingCost) }}
+            Property Taxes: ${{ Math.round(monthlyPropertyTax) }}
           </li>
-          <li class="list-group-item">PMI: ${{ Math.round(closingCost) }}</li>
           <li class="list-group-item">
-            HOA Fees: ${{ Math.round(closingCost) }}
+            Homeowners Insurance: ${{ Math.round(monthlyHoi) }}
           </li>
-          <li class="list-group-item">LTV: ${{ Math.round(closingCost) }}</li>
+          <li class="list-group-item">
+            PMI: ${{ Math.round(monthlyMortgageInsurance) }}
+          </li>
+          <li class="list-group-item">HOA Fees: ${{ Math.round(hoa) }}</li>
+          <li class="list-group-item">LTV: ${{ Math.round(ltv) }}</li>
         </ul>
       </div>
       <button
@@ -520,21 +522,9 @@ export default {
     return this.init();
   },
   validations: {
-    grossIncome: {
+    homePurchasePrice: {
       required,
-      between: between(500, 50000)
-    },
-    carLoan: {
-      required,
-      between: between(0, 5000)
-    },
-    creditCard: {
-      required,
-      between: between(0, 5000)
-    },
-    studentLoan: {
-      required,
-      between: between(0, 5000)
+      between: between(10000, 1000000)
     },
     downPaymentPercent: {
       required,
@@ -546,7 +536,7 @@ export default {
     },
     hoi: {
       required,
-      between: between(0, 24000)
+      between: between(0, 4000)
     },
     hoa: {
       required,
@@ -554,66 +544,15 @@ export default {
     },
     propertyTax: {
       required,
-      between: between(0, 40000)
+      between: between(400, 25000)
     }
   },
   computed: {
-    maxHomePurchasePrice() {
-      let max = this.mortgageLoanAmount + this.downPayment;
-      return this.handleNegativeNums(max);
-    },
     downPayment() {
-      let down =
-        this.mortgageLoanAmount / (1 - this.downPaymentPercent / 100) -
-        this.mortgageLoanAmount;
-      return this.handleNegativeNums(down);
+      return this.homePurchasePrice * (this.downPaymentPercent / 100);
     },
     mortgageLoanAmount() {
-      let loan = this.pv(
-        this.interestRate / 12,
-        this.term * 12,
-        this.principalInterestPayment
-      );
-      return this.handleNegativeNums(loan);
-    },
-    loanToValue() {
-      return this.downPayment / this.mortgageLoanAmount;
-    },
-    estimatedMonthlyPayment() {
-      return this.grossIncome * this.dti - this.totalDebts;
-    },
-    dtiPercent() {
-      return this.dti * 100;
-    },
-    interestRate() {
-      return this.interestRatePercent / 100;
-    },
-    closingCost() {
-      return Math.round(this.maxHomePurchasePrice * this.closingCostMultiplier);
-    },
-    totalMonthlyPayment() {
-      let payment =
-        this.propertyTaxMonthly +
-        this.hoiMonthly +
-        this.hoa +
-        this.monthlyMortagePremium +
-        this.principalInterestPayment;
-      if (this.maxHomePurchasePrice <= 0) {
-        return 0;
-      }
-      return this.handleNegativeNums(payment);
-    },
-    principalInterestPayment() {
-      if (this.estimatedMonthlyPayment <= 0) {
-        return 0;
-      }
-      let payment =
-        this.estimatedMonthlyPayment -
-        (this.propertyTaxMonthly +
-          this.hoiMonthly +
-          this.hoa +
-          this.monthlyMortagePremium);
-      return this.handleNegativeNums(payment);
+      return this.homePurchasePrice - this.downPayment;
     },
     pmi() {
       if (this.downPaymentPercent >= 20) {
@@ -627,38 +566,43 @@ export default {
       }
       return 0.011;
     },
-    monthlyMortagePremium() {
-      if (this.guessLoanAmount <= 0) {
-        return 0;
-      }
-      let premium = (this.pmi * this.guessLoanAmount) / 12;
-      return this.handleNegativeNums(premium);
+    closingCost() {
+      return this.homePurchasePrice * this.closingCostMultiplier;
     },
-    guessLoanAmount() {
-      return this.pv(
-        this.interestRate / 12,
+    monthlyMortgageInsurance() {
+      return (this.pmi * this.mortgageLoanAmount) / 12;
+    },
+    monthlyPrincipalInterestPayment() {
+      return this.pmt(
+        this.interestRatePercent / 100 / 12,
         this.term * 12,
-        this.estimatedMonthlyPayment - this.grossIncome * 0.05
+        this.mortgageLoanAmount
       );
     },
-    totalDebts() {
-      return this.carLoan + this.creditCard + this.studentLoan;
-    },
-    propertyTaxMonthly() {
+    monthlyPropertyTax() {
       return this.propertyTax / 12;
     },
-    hoiMonthly() {
+    monthlyHoi() {
       return this.hoi / 12;
+    },
+    totalMonthlyMortgage() {
+      return (
+        this.monthlyMortgageInsurance +
+        this.monthlyPrincipalInterestPayment +
+        this.monthlyPropertyTax +
+        this.monthlyHoi +
+        this.hoa
+      );
+    },
+    ltv() {
+      return (this.mortgageLoanAmount / this.homePurchasePrice) * 100;
     }
   },
   methods: {
     init() {
       return {
         isSubmitted: false,
-        grossIncome: 4000,
-        carLoan: 500,
-        creditCard: 100,
-        studentLoan: 150,
+        homePurchasePrice: 200000,
         downPaymentPercent: 5,
         interestRatePercent: 4.25,
         term: 30,
@@ -666,16 +610,12 @@ export default {
         hoa: 50,
         propertyTax: 1500,
         simpleView: true,
-        dti: 0.36,
         closingCostMultiplier: 0.025,
         errorMsgPre: "Please enter a valid amount between"
       };
     },
     reset() {
-      this.grossIncome = this.init().grossIncome;
-      this.carLoan = this.init().carLoan;
-      this.creditCard = this.init().creditCard;
-      this.studentLoan = this.init().studentLoan;
+      this.homePurchasePrice = this.init().homePurchasePrice;
       this.downPaymentPercent = this.init().downPaymentPercent;
       this.interestRatePercent = this.init().interestRatePercent;
       this.term = this.init().term;
@@ -683,15 +623,31 @@ export default {
       this.hoa = this.init().hoa;
       this.propertyTax = this.init().propertyTax;
     },
-    pv(rate, nper, pmt) {
-      let x = (1 + rate) ** nper;
-      return (pmt * ((x - 1) / rate)) / x;
+    pmt(rate, period, pv) {
+      return (pv * rate) / (1 - (1 + rate) ** (-1 * period));
     },
     handleNegativeNums(n) {
       if (n < 0) {
         return 0;
       }
       return n;
+    },
+    updateFees() {
+      let dynamicHoa = Math.round((this.homePurchasePrice * 0.0025) / 12);
+      this.hoa =
+        dynamicHoa > this.$v.hoa.$params.between.max
+          ? this.$v.hoa.$params.between.max
+          : dynamicHoa;
+      let dynamicHoi = Math.round(this.homePurchasePrice * 0.0075);
+      this.hoi =
+        dynamicHoi > this.$v.hoi.$params.between.max
+          ? this.$v.hoi.$params.between.max
+          : dynamicHoi;
+      let dynamicTax = Math.round(this.homePurchasePrice * 0.0125);
+      this.propertyTax =
+        dynamicTax < this.$v.propertyTax.$params.between.min
+          ? this.$v.propertyTax.$params.between.min
+          : dynamicTax;
     }
   }
 };
