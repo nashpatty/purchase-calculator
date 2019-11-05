@@ -5,8 +5,7 @@
         <div class="row">
           <div class="col">
             <p>
-              Figure out the maximum home price you can afford before you start
-              house hunting.
+              Estimate your monthly mortgage payments based on the home price.
             </p>
             <p class="text-italic">
               Note: Calculators display default values. Enter new figures to
@@ -20,17 +19,9 @@
               <div class="row">
                 <div id="input" class="col col-md-6">
                   <div id="gross-income-input-group" class="form-group">
-                    <label for="gross-income-input-field">Gross Income</label>
-                    <span
-                      class="tooltipContent"
-                      data-toggle="tooltip"
-                      data-placement="right"
-                      aria-hidden="true"
-                      data-html="true"
-                      title="<h3>Gross Income</h3><p>Enter your total monthly income before any taxes or other deductions are withheld</p>"
+                    <label for="gross-income-input-field"
+                      >Home Purchase Price</label
                     >
-                      <i class="fa fa-question-circle fa-1x" />
-                    </span>
                     <div class="input-group mb-2">
                       <div class="input-group-prepend">
                         <div class="input-group-text">$</div>
@@ -70,142 +61,6 @@
                           and ${{
                             Number(
                               $v.grossIncome.$params.between.max
-                            ).toLocaleString()
-                          }}</span
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div id="car-loan-input-group" class="form-group">
-                    <label for="car-loan-input-field">Car Loan</label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">$</div>
-                      </div>
-                      <input
-                        id="car-loan-input-field"
-                        v-model.number="$v.carLoan.$model"
-                        type="number"
-                        class="form-control"
-                        :class="{
-                          'is-invalid': $v.carLoan.$error || $v.carLoan.$invalid
-                        }"
-                      />
-                      <div class="input-group-append">
-                        <div class="input-group-text">/mo</div>
-                      </div>
-                      <input
-                        id="car-loan-input-range"
-                        v-model.number="carLoan"
-                        type="range"
-                        class="custom-range"
-                        min="0"
-                        max="5000"
-                      />
-                      <div class="invalid-feedback">
-                        <span v-if="!$v.carLoan.between || !$v.carLoan.required"
-                          >{{ errorMsgPre }} ${{
-                            Number(
-                              $v.carLoan.$params.between.min
-                            ).toLocaleString()
-                          }}
-                          and ${{
-                            Number(
-                              $v.carLoan.$params.between.max
-                            ).toLocaleString()
-                          }}</span
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div id="credit-card-input-group" class="form-group">
-                    <label for="credit-card-input-field">Credit Cards</label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">$</div>
-                      </div>
-                      <input
-                        id="credit-card-input-field"
-                        v-model.number="$v.creditCard.$model"
-                        type="number"
-                        class="form-control"
-                        :class="{
-                          'is-invalid':
-                            $v.creditCard.$error || $v.creditCard.$invalid
-                        }"
-                      />
-                      <div class="input-group-append">
-                        <div class="input-group-text">/mo</div>
-                      </div>
-                      <input
-                        id="credit-card-input-range"
-                        v-model.number="creditCard"
-                        type="range"
-                        class="custom-range"
-                        min="0"
-                        max="5000"
-                      />
-                      <div class="invalid-feedback">
-                        <span
-                          v-if="
-                            !$v.creditCard.between || !$v.creditCard.required
-                          "
-                          >{{ errorMsgPre }} ${{
-                            Number(
-                              $v.creditCard.$params.between.min
-                            ).toLocaleString()
-                          }}
-                          and ${{
-                            Number(
-                              $v.creditCard.$params.between.max
-                            ).toLocaleString()
-                          }}</span
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div id="other-debts-input-group" class="form-group">
-                    <label for="other-debts-input-field"
-                      >Student Loan/Other Debts</label
-                    >
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">$</div>
-                      </div>
-                      <input
-                        id="other-debts-input-field"
-                        v-model.number="$v.studentLoan.$model"
-                        type="number"
-                        class="form-control"
-                        :class="{
-                          'is-invalid':
-                            $v.studentLoan.$error || $v.studentLoan.$invalid
-                        }"
-                      />
-                      <div class="input-group-append">
-                        <div class="input-group-text">/mo</div>
-                      </div>
-                      <input
-                        id="other-debts-input-range"
-                        v-model.number="studentLoan"
-                        type="range"
-                        class="custom-range"
-                        min="0"
-                        max="5000"
-                      />
-                      <div class="invalid-feedback">
-                        <span
-                          v-if="
-                            !$v.studentLoan.between || !$v.studentLoan.required
-                          "
-                          >{{ errorMsgPre }} ${{
-                            Number(
-                              $v.studentLoan.$params.between.min
-                            ).toLocaleString()
-                          }}
-                          and ${{
-                            Number(
-                              $v.studentLoan.$params.between.max
                             ).toLocaleString()
                           }}</span
                         >
@@ -499,7 +354,7 @@
                           role="tab"
                           aria-controls="nav-payment-info"
                           aria-selected="false"
-                          >Payment Info</a
+                          >Loan Info</a
                         >
                       </div>
                     </nav>
@@ -512,15 +367,23 @@
                       >
                         <ul class="list-group">
                           <li class="list-group-item">
-                            Max Home Purchase Price: ${{
+                            Monthly Mortgage Payment: ${{
                               Math.round(maxHomePurchasePrice)
                             }}
                           </li>
                           <li class="list-group-item">
-                            Down Payment: ${{ Math.round(downPayment) }}
+                            PMI: ${{ Math.round(downPayment) }}
                           </li>
                           <li class="list-group-item">
-                            Mortgage Loan Amount: ${{
+                            HOA: ${{ Math.round(mortgageLoanAmount) }}
+                          </li>
+                          <li class="list-group-item">
+                            Taxes & Insurance: ${{
+                              Math.round(mortgageLoanAmount)
+                            }}
+                          </li>
+                          <li class="list-group-item">
+                            Principal & Interest: ${{
                               Math.round(mortgageLoanAmount)
                             }}
                           </li>
@@ -539,9 +402,7 @@
                             }}
                           </li>
                           <li class="list-group-item">
-                            MonthlyPayment: ${{
-                              Math.round(totalMonthlyPayment)
-                            }}
+                            Down Payment: ${{ Math.round(totalMonthlyPayment) }}
                           </li>
                           <li class="list-group-item">
                             Term: {{ term }} years
@@ -588,61 +449,48 @@
     <div v-if="isSubmitted" id="result-page">
       <div class="col">
         <ul class="list-group">
-          <p>YOU CAN POTENTIALLY AFFORD A MAX OF:</p>
+          <p>YOU CAN EXPECT TO PAY:</p>
           <li class="list-group-item">
-            Max Home Purchase Price: ${{ Math.round(maxHomePurchasePrice) }}
+            Home Purchase Price: ${{ Math.round(maxHomePurchasePrice) }}
           </li>
           <li class="list-group-item">
             Mortgage Loan Amount: ${{ Math.round(mortgageLoanAmount) }}
           </li>
-          <p>WHAT YOU SHARED ABOUT YOUR FINANCIAL SITUATION:</p>
           <li class="list-group-item">
-            Gross Income: ${{ Math.round(grossIncome) }}
+            Total Mortgage Payment: ${{ Math.round(mortgageLoanAmount) }}
           </li>
-          <li class="list-group-item">
-            Total Debts: ${{ Math.round(totalDebts) }}
-          </li>
-          <li class="list-group-item">Car Loans: ${{ Math.round(carLoan) }}</li>
-          <li class="list-group-item">
-            Credit Cards: ${{ Math.round(creditCard) }}
-          </li>
-          <li class="list-group-item">
-            Student Loans / Other Debts: ${{ Math.round(studentLoan) }}
-          </li>
-          <li class="list-group-item">Debt to Income: {{ dtiPercent }}%</li>
           <p>EXPECTED FUNDS NEEDED AT CLOSING:</p>
           <li class="list-group-item">
-            Down Payment: ${{ Math.round(downPayment) }}
+            Total Cash Required: ${{ Math.round(grossIncome) }}
           </li>
           <li class="list-group-item">
-            Closing Costs: ${{ Math.round(closingCost) }}
+            Down Payment: ${{ Math.round(totalDebts) }}
+          </li>
+          <li class="list-group-item">
+            Closing Costs: ${{ Math.round(carLoan) }}
           </li>
           <p>INFORMATION ABOUT YOUR POTENTIAL MORTGAGE:</p>
           <li class="list-group-item">
-            Mortgage Loan Amount: ${{ Math.round(mortgageLoanAmount) }}
+            Mortgage Loan Amount: ${{ Math.round(downPayment) }}
           </li>
-          <li class="list-group-item">Term: {{ term }} years</li>
+          <li class="list-group-item">Term: ${{ Math.round(closingCost) }}</li>
           <li class="list-group-item">
-            Interest Rate: {{ interestRatePercent }}%
-          </li>
-          <li class="list-group-item">
-            Total Mortgage Payment: ${{ Math.round(totalMonthlyPayment) }}
+            Total Mortgage Payment: ${{ Math.round(closingCost) }}
           </li>
           <li class="list-group-item">
-            Principal Interest and Taxes: ${{
-              Math.round(principalInterestPayment)
-            }}
+            Principal & Interest (P&I) Payment: ${{ Math.round(closingCost) }}
           </li>
           <li class="list-group-item">
-            Property Taxes: ${{ Math.round(propertyTaxMonthly) }}
+            Property Taxes: ${{ Math.round(closingCost) }}
           </li>
           <li class="list-group-item">
-            Home Owners Insurance: ${{ Math.round(hoiMonthly) }}
+            Homeowners Insurance: ${{ Math.round(closingCost) }}
           </li>
+          <li class="list-group-item">PMI: ${{ Math.round(closingCost) }}</li>
           <li class="list-group-item">
-            PMI: ${{ Math.round(monthlyMortagePremium) }}
+            HOA Fees: ${{ Math.round(closingCost) }}
           </li>
-          <li class="list-group-item">HOA Fees: ${{ Math.round(hoa) }}</li>
+          <li class="list-group-item">LTV: ${{ Math.round(closingCost) }}</li>
         </ul>
       </div>
       <button
@@ -652,20 +500,11 @@
         Back to Calculator &#8677;
       </button>
       <p>
-        These calculator results are estimates based on your inputs, a 36%* DTI
-        (debt-to-income) default setting, and other assumptions required to make
-        a preliminary calculation. Depending on your inputs, the default values
-        for property taxes, homeowner’s insurance and HOA fees may not be
-        accurate for your situation. Contact a bank, credit union, housing
-        advisor, or lender to determine your loan eligibility and accurate
-        costs. Fannie Mae does not offer mortgage loans to consumers and this in
-        no way indicates approval or financing of a mortgage loan.
-      </p>
-      <p>
-        * Lenders often use your DTI and other factors (i.e., underwriting
-        guidelines) to confirm eligibility and the type of loan you may be
-        offered. Lenders may require a higher or lower DTI percentage to
-        determine loan eligibility based on your individual financial situation.
+        These calculator results are estimates based on your inputs. Contact a
+        bank, credit union, housing advisor, or lender to determine your loan
+        eligibility and accurate costs. Fannie Mae does not offer mortgage loans
+        to consumers and this in no way indicates approval or financing of a
+        mortgage loan.
       </p>
     </div>
   </div>
@@ -676,7 +515,7 @@
 import { required, between } from "vuelidate/lib/validators";
 
 export default {
-  name: "AffordabilityCalculator",
+  name: "PurchaseCalculator",
   data() {
     return this.init();
   },

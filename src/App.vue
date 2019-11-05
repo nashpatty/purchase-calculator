@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <AffordabilityCalculator msg="Welcome to Your Vue.js App" />
+    <PurchaseCalculator />
   </div>
 </template>
 
 <script>
-import AffordabilityCalculator from "./components/AffordabilityCalculator.vue";
+import PurchaseCalculator from "./components/PurchaseCalculator.vue";
 
 export default {
   name: "app",
   components: {
-    AffordabilityCalculator
+    PurchaseCalculator
   }
 };
 </script>
