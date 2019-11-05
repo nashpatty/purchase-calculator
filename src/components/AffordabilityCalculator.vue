@@ -236,6 +236,7 @@
                         class="custom-range"
                         min="3"
                         max="50"
+                        step="0.25"
                       />
                       <div class="invalid-feedback">
                         <span
@@ -777,10 +778,16 @@ export default {
       return this.handleNegativeNums(payment);
     },
     pmi() {
-      if (this.downPaymentPercent > 20) {
+      if (this.downPaymentPercent >= 20) {
         return 0;
       }
-      return 0.0062;
+      if (this.downPaymentPercent >= 10) {
+        return 0.0044;
+      }
+      if (this.downPaymentPercent >= 5) {
+        return 0.0062;
+      }
+      return 0.011;
     },
     monthlyMortagePremium() {
       if (this.guessLoanAmount <= 0) {
